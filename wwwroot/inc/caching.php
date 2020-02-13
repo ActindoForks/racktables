@@ -18,7 +18,7 @@ define ('CACHE_DURATION', 604800); // 7 * 24 * 3600
 // returns TRUE on cache-hit, FALSE otherwise. Calling side should call exit if the result is TRUE.
 function checkCachedResponse ($creation_ts, $expire)
 {
-	$client_time = HTTPDateToUnixTime (@$_SERVER['HTTP_IF_MODIFIED_SINCE']);
+	$client_time = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? HTTPDateToUnixTime (@$_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
 	$server_time = time();
 	$result =
 	(

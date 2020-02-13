@@ -390,9 +390,10 @@ function proxyStaticURI ($URI)
 	)
 		printStatic404();
 	global $local_staticdir, $racktables_staticdir;
-	if (isset ($local_staticdir))
+        $fh = false;
+	if (isset ($local_staticdir) && is_file("${local_staticdir}/${URI}"))
 		$fh = @fopen ("${local_staticdir}/${URI}", 'r');
-	if (! isset ($fh) || FALSE === $fh)
+	if ((! isset ($fh) || FALSE === $fh) && is_file("${racktables_staticdir}/${URI}"))
 		$fh = @fopen ("${racktables_staticdir}/${URI}", 'r');
 	if (FALSE === $fh)
 		printStatic404();
